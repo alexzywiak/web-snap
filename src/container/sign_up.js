@@ -15,7 +15,7 @@ class SignUp extends Component{
     this.props.logIn(data)
     .then(result => {
      const sessionToken = result.payload.data.sessionToken;
-     window.localStorage.setItem('session-token', result);
+     window.localStorage.setItem('session-token', sessionToken);
    });
   }
 

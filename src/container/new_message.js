@@ -3,54 +3,67 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
 
-import {getUsers, newMessage, getUserSession} from '../action/index';
+import { authorize } from '../auth';
+import {getUsers, getUser, newMessage, getUserSession} from '../action/index';
+
+import NewMessageForm from '../component/new_message_form';
 
 class NewMessage extends Component{
 
-  componentWillMount(){
-    this.props.getUsers();
-    if(!this.props.loggedInUser){
-      if(window.localStorage.getItem('session-id')){
-        
-      } else {
-        browserHistory.push('/login');
-      }
-    }
+  constructor(props){
+    super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  renderUsers(){
-    return this.props.users.map( user => {
-      return (
-        <li key={user.username}>
-          <div>{user.username}</div>
-          <div>{user.email}</div>
-        </li>
-      );
-    });
+  componentWillMount(){
+    this.props.getUsers();
+    authorize(this.props, '/login');
+  }
+
+  handleSubmit(data){
+    // this.props.uploadFile(data.filepath)
+    //   .then(resp => {
+    //     console.log(resp);
+    //   });
+    this.props.newMessage(data)
+      .then(resp => {
+        console.log(resp);
+      });
   }
 
   render(){
-    console.log(this.props);
+
+    if(!this.props.loggedInUser){
+      return (
+        <div></div>
+      );
+    }
+
     return (
       <div>
-        <ul>{this.renderUsers()}</ul>
-        <button onClick={() => browserHistory.push('/login')}></button>
+        <h3>{this.props.loggedInUser.username}</h3>
+        <NewMessageForm 
+          handleSubmit={this.handleSubmit}
+          loggedInUser={this.props.loggedInUser}
+          users={this.props.users} />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
-  const {loggedInUser, users} = state;
+
+  const {loggedInUser, users, session} = state;
   return {
     loggedInUser,
+    session,
     users
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({getUsers, getUserSession}, dispatch);
+  return bindActionCreators({getUsers, getUserSession, getUser, newMessage}, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewMessage);
