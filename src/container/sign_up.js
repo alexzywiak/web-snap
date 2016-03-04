@@ -12,10 +12,11 @@ class SignUp extends Component{
   }
 
   onSubmit(data){
-    this.props.signUp(data)
-      .then(result => {
-        console.log('result', result);
-      });
+    this.props.logIn(data)
+    .then(result => {
+     const sessionToken = result.payload.data.sessionToken;
+     window.localStorage.setItem('session-token', result);
+   });
   }
 
   render(){
@@ -24,15 +25,15 @@ class SignUp extends Component{
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
-        <label>Username</label>
-        <input type="text" {...username}/>
-        <label>Email</label>
-        <input type="text" {...email}/>
-        <label>Password</label>
-        <input type="text" {...password}/>
-        <button type="submit">Sign Up</button>
+      <label>Username</label>
+      <input type="text" {...username}/>
+      <label>Email</label>
+      <input type="text" {...email}/>
+      <label>Password</label>
+      <input type="text" {...password}/>
+      <button type="submit">Sign Up</button>
       </form>
-    );
+      );
   }
 }
 

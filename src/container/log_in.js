@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {reduxForm} from 'redux-form';
 
 import {logIn} from '../action/index';
@@ -13,9 +13,10 @@ class LogIn extends Component{
 
   onSubmit(data){
     this.props.logIn(data)
-      .then(result => {
-        console.log('result', result);
-      });
+    .then(result => {
+      const sessionToken = result.payload.data.sessionToken;
+      window.localStorage.setItem('session-token', result);
+    });
   }
 
   render(){
@@ -24,13 +25,13 @@ class LogIn extends Component{
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
-        <label>Username</label>
-        <input type="text" {...username}/>
-        <label>Password</label>
-        <input type="text" {...password}/>
-        <button type="submit">Sign Up</button>
+      <label>Username</label>
+      <input type="text" {...username}/>
+      <label>Password</label>
+      <input type="text" {...password}/>
+      <button type="submit">Sign Up</button>
       </form>
-    );
+      );
   }
 }
 

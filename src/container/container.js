@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-class Container extends Component(){
+class Container extends Component{
   render(){
     return (
       <div>Container</div>
