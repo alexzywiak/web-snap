@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const GET_USERS = 'GET_USERS';
+export const SIGN_UP = 'SIGN_UP';
 
 const ROOT_URL = 'http://localhost:1337/parse';
 const API_KEY = 'myid';
@@ -24,6 +25,7 @@ export const getUsers = () => {
 
 export const signUp = (data) => {
 
+  console.log('action', data);
   const url = `${ROOT_URL}/users`;
   const request = axios.post(url, data, {
     headers: {
@@ -33,7 +35,7 @@ export const signUp = (data) => {
   });
 
   return {
-    type: GET_USERS,
+    type: SIGN_UP,
     payload: request
   };
 };
