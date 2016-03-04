@@ -25,7 +25,6 @@ export const getUsers = () => {
 
 export const signUp = (data) => {
 
-  console.log('action', data);
   const url = `${ROOT_URL}/users`;
   const request = axios.post(url, data, {
     headers: {

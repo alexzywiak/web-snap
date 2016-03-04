@@ -8,17 +8,18 @@ class SignUp extends Component{
 
   constructor(props){
     super(props);
-
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSubmit(data){
-    console.log('container', data);
-    this.props.signUp(data);
+    this.props.signUp(data)
+      .then(result => {
+        console.log('result', result);
+      });
   }
 
   render(){
-
+    console.log('container', this.props.loggedInUser)
     const {fields: {username, email, password}, handleSubmit} = this.props;
 
     return (
@@ -35,25 +36,13 @@ class SignUp extends Component{
   }
 }
 
+const mapStateToProps = ({loggedInUser}) => {
+  return {
+    loggedInUser
+  }
+}
+
 export default reduxForm({
   form: 'SignUpForm',
   fields: ['username', 'email', 'password']
-}, null, {signUp})(SignUp);
-
-// class SignUp extends Component(){
-
-//   constructor(props){
-//     super(props);
-//     this.onSubmit = this.onSubmit.bind(this);
-//   }
-
-//   onSubmit(data){
-//     console.log(data);
-//     this.props.signUp(data)
-//       .then( result => {
-//         console.log(result);
-//       });
-//   }
-
-
-// }
+}, mapStateToProps, {signUp})(SignUp);

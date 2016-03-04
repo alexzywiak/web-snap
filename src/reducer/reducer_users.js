@@ -1,4 +1,4 @@
-import {GET_USERS} from '../action/index';
+import {GET_USERS, SIGN_UP} from '../action/index';
 
 export default (state = [], action) => {
   switch(action.type){
