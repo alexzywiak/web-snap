@@ -4,7 +4,8 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "NODE_EVV=dev nodemon index.js",
+    "build": "webpack -d --watch",
     "test": "mocha --compilers js:babel-register --recursive"
   },
   "author": "",
