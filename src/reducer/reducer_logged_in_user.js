@@ -1,13 +1,13 @@
-import {SIGN_UP, LOG_IN, GET_USER} from '../action/index';
+import {SET_LOGGED_IN_USER} from '../action/index';
 
 export default (state = null, action) => {
   switch(action.type){
-    case SIGN_UP:
-      return action.payload.data;
-    case LOG_IN:
-      return action.payload.data;
-    case GET_USER:
-      return action.payload.data;
+    case SET_LOGGED_IN_USER:
+      if(action.payload){
+        return action.payload.data;
+      } else {
+        return action.payload;
+      }
     default:
       return state;
   }

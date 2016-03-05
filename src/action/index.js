@@ -1,9 +1,7 @@
 import axios from 'axios';
+import {browserHistory} from 'react-router';
 
-export const GET_USERS = 'GET_USERS';
-export const GET_USER = 'GET_USER';
-export const SIGN_UP = 'SIGN_UP';
-export const LOG_IN = 'LOG_IN';
+export const SET_LOGGED_IN_USER = 'SET_LOGGED_IN_USER';
 export const GET_USER_SESSION = 'GET_USER_SESSION';
 export const GET_USER_MESSAGE_LIST = 'GET_USER_MESSAGE_LIST';
 export const GET_MESSAGE = 'GET_MESSAGE';
@@ -11,6 +9,7 @@ export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 export const UPLOAD_FILE = 'UPLOAD_FILE';
 export const DELETE_FILE = 'DELETE_FILE';
+export const FLASH_MESSAGE = 'FLASH_MESSAGE';
 
 const ROOT_URL = 'http://localhost:3000/parse';
 const API_KEY = 'myid';
@@ -43,7 +42,7 @@ export const signUp = (data) => {
   });
 
   return {
-    type: SIGN_UP,
+    type: SET_LOGGED_IN_USER,
     payload: request
   };
 };
@@ -59,7 +58,31 @@ export const logIn = (data) => {
   });
 
   return {
-    type: LOG_IN,
+    type: SET_LOGGED_IN_USER,
+    payload: request
+  };
+};
+
+export const logOut = () => {
+  window.localStorage.removeItem('session-token');
+  browserHistory.push('/login');
+  return {
+    type: SET_LOGGED_IN_USER,
+    payload: null
+  }
+};
+
+export const getUser = (userId) => {
+  let url = `${ROOT_URL}/users/${userId}`;
+  const request = axios.get(url, {
+    headers: {
+      'X-Parse-Application-Id': API_KEY,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return {
+    type: SET_LOGGED_IN_USER,
     payload: request
   };
 };
@@ -80,20 +103,6 @@ export const getUserSession = (sessionToken) => {
   };
 };
 
-export const getUser = (userId) => {
-  let url = `${ROOT_URL}/users/${userId}`;
-  const request = axios.get(url, {
-    headers: {
-      'X-Parse-Application-Id': API_KEY,
-      'Content-Type': 'application/json'
-    }
-  });
-
-  return {
-    type: GET_USER,
-    payload: request
-  };
-};
 
 export const uploadFile = (filepath) => {
   const url = `${ROOT_URL}/files/msg.jpg`;
@@ -191,3 +200,10 @@ export const deleteMessage = (msgId) => {
     payload: request
   };
 };
+
+export const sendFlashMessage = (msg) => {
+  return {
+    type: FLASH_MESSAGE,
+    payload: msg
+  }
+}

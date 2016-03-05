@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
 
 import { authorize } from '../auth';
-import {getUsers, getUser, newMessage, getUserSession, uploadFile} from '../action/index';
+import {getUsers, getUser, newMessage, getUserSession, uploadFile, sendFlashMessage} from '../action/index';
 
 import NewMessageForm from '../component/new_message_form';
 
@@ -24,13 +24,16 @@ class NewMessage extends Component{
   handleSubmit(data){
     this.props.uploadFile(data.filepath)
       .then(resp => {
-        console.log('upload', resp);
         const {url, name} = resp.payload.data;
         data.imageUrl = url;
         data.filepath = name;
         this.props.newMessage(data)
         .then(resp => {
-          console.log(resp);
+          this.props.sendFlashMessage({
+            className: 'alert-success',
+            message: 'You snapped a chat!  Way to go!'
+          });
+          browserHistory.push('/messages');
         });
       });
   }
@@ -45,11 +48,10 @@ class NewMessage extends Component{
 
     return (
       <div>
-      <h3>{this.props.loggedInUser.username}</h3>
-      <NewMessageForm 
-      handleSubmit={this.handleSubmit}
-      loggedInUser={this.props.loggedInUser}
-      users={this.props.users} />
+        <NewMessageForm 
+        handleSubmit={this.handleSubmit}
+        loggedInUser={this.props.loggedInUser}
+        users={this.props.users} />
       </div>
       );
   }
@@ -66,7 +68,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({getUsers, getUserSession, getUser, newMessage, uploadFile}, dispatch);
+  return bindActionCreators({getUsers, getUserSession, getUser, newMessage, uploadFile, sendFlashMessage}, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewMessage);

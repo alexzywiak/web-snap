@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
+import {browserHistory} from 'react-router';
 
-import {logIn} from '../action/index';
+import {logIn, sendFlashMessage} from '../action/index';
 import LoginForm from '../component/login_form';
 
 class LogIn extends Component{
@@ -17,6 +18,11 @@ class LogIn extends Component{
     .then(result => {
       const sessionToken = result.payload.data.sessionToken;
       window.localStorage.setItem('session-token', sessionToken);
+      this.props.sendFlashMessage({
+        className:'alert-success',
+        message: `You\'re logged in as ${this.props.loggedInUser.username}!`
+      });
+      browserHistory.push('/messages');
     });
   }
 
@@ -39,7 +45,7 @@ const mapStateToProps = ({loggedInUser}) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({logIn}, dispatch);
+  return bindActionCreators({logIn, sendFlashMessage}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogIn);

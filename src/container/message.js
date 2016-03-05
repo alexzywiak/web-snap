@@ -4,7 +4,9 @@ import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
 
 import {authorize} from '../auth';
-import {getMessage, getUser, getUserSession, deleteMessage, deleteImage} from '../action/index';
+import {getMessage, getUser, getUserSession, deleteMessage, deleteImage, sendFlashMessage} from '../action/index';
+
+import MessageView from '../component/message_view';
 
 class Message extends Component{
 
@@ -19,24 +21,19 @@ class Message extends Component{
   }
 
   componentWillUnmount(){
+    this.props.sendFlashMessage({
+      className: 'alert-warning',
+      message: 'Time\'s up!  All gone!'
+    });
     window.clearInterval(this.interval);
     this.props.deleteMessage(this.props.params.id);
     this.props.deleteImage(this.props.message.filepath);
   }
 
   render(){
-
-    if(!this.props.message){
-      return (<div></div>);
-    }
-
-    const {sender, message, imageUrl} = this.props.message
     return (
-      <div>
-        <h3>{sender}</h3>
-        <p>{message}</p>
-        <img src={imageUrl} alt=""/>
-      </div>
+      <MessageView 
+        message={this.props.message} />
     );
   }
 }
@@ -46,7 +43,7 @@ const mapStateToProps = ({message}) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({getMessage, getUser, getUserSession, deleteMessage, deleteImage}, dispatch);
+  return bindActionCreators({getMessage, getUser, getUserSession, deleteMessage, deleteImage, sendFlashMessage}, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Message);

@@ -30,31 +30,50 @@ class NewMessageForm extends Component{
       .filter( user => user.username !== this.props.loggedInUser.username)
       .map( user => {
       return (
-        <li
-          onClick={() => this.setState({recipient: user.username})} 
-          key={user.username}>
-          <div>{user.username}</div>
-          <div>{user.email}</div>
-        </li>
+        <button
+        className={this.state.recipient === user.username ? 'list-group-item active' : 'list-group-item'}
+        onClick={() => this.setState({recipient: user.username})} 
+        key={user.username}>
+          <h5 className="list-group-item-heading">{user.username}</h5>
+          <p className="list-group-item-text">{user.email}</p>
+        </button>
       );
     });
   }
 
   render(){
-    console.log(this.state)
+
     return (
-      <div>
-        <ul>{this.renderUsers()}</ul>
-        <h4>Recipient: {this.state.recipient}</h4>
-        <form onSubmit={this.handleSubmit}> 
-          <input 
-           value = { this.state.message }
-           onChange = { evt => this.onInputChange('message', evt.target.value) }/>
-           <input 
-           type='file'
-           onChange = { evt => this.onInputChange('filepath', evt.target.files ) }/>
-           <input type="submit" value="Send"/>
-        </form>
+      <div className="row">
+        <div className="col-md-10 col-md-offset-1">
+          
+          <h4>Recipient: {this.state.recipient ? this.state.recipient : 'Pick someone to send this to!'}</h4>
+          
+          <div className="list-group">
+            {this.renderUsers()}
+          </div>
+          
+          <form onSubmit={this.handleSubmit}> 
+            <div className="form-group">
+              <label>Message</label>
+              <input 
+                className="form-control"
+                value = { this.state.message }
+                onChange = { evt => this.onInputChange('message', evt.target.value) }/>
+            </div>
+             <div className="form-group">
+               <label>Image Upload</label>
+               <input 
+                className="form-control"
+                type='file'
+                onChange = { evt => this.onInputChange('filepath', evt.target.files ) }/>
+              </div>
+            <input 
+            className="btn btn-primary btn-block"
+            type="submit" 
+            value="Send"/>
+          </form>
+        </div>
       </div>
     );
   }

@@ -6,6 +6,8 @@ import {Link} from 'react-router';
 import {authorize} from '../auth';
 import {getUserMessageList, getUser, getUserSession} from '../action/index';
 
+import MessageListView from '../component/message_list_view';
+
 class MessageList extends Component{
 
   componentWillMount(){
@@ -15,24 +17,9 @@ class MessageList extends Component{
       });
   }
 
-  renderMessages(){
-    return this.props.messages.map( msg => {
-      return (
-        <div key={msg.objectId}>
-          <Link to={`/message/${msg.objectId}`}>
-            <h3>{msg.sender}</h3>
-            <p>{msg.message}</p>
-          </Link>
-        </div>
-      );
-    });
-  }
-
   render(){
     return (
-      <ul>
-        {this.renderMessages()}
-      </ul>
+      <MessageListView messages={this.props.messages} />
     );
   }
 }
