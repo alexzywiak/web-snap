@@ -52,8 +52,7 @@ class NewMessageForm extends Component{
            onChange = { evt => this.onInputChange('message', evt.target.value) }/>
            <input 
            type='file'
-           value = { this.state.filepath }
-           onChange = { evt => this.onInputChange('filepath', evt.target.value ) }/>
+           onChange = { evt => this.onInputChange('filepath', evt.target.files ) }/>
            <input type="submit" value="Send"/>
         </form>
       </div>

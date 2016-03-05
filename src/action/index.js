@@ -11,7 +11,7 @@ export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 export const UPLOAD_FILE = 'UPLOAD_FILE';
 
-const ROOT_URL = 'http://localhost:1337/parse';
+const ROOT_URL = 'http://localhost:3000/parse';
 const API_KEY = 'myid';
 const HEADERS = {'X-Parse-Application-Id': API_KEY};
 
@@ -98,11 +98,14 @@ export const uploadFile = (filepath) => {
   const url = `${ROOT_URL}/files/msg.jpg`;
   const options = {
     headers: {
+      'X-Parse-Application-Id': API_KEY,
       'Content-Type': 'image/jpeg'
     }
-  }
+  };
 
-  const request = axios.put(url, filepath, options);
+  console.log(filepath);
+
+  const request = axios.post(url, filepath[0], options);
 
   return {
     type: UPLOAD_FILE,
