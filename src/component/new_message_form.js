@@ -4,7 +4,13 @@ class NewMessageForm extends Component{
   constructor(props){
     super(props);
 
-    this.state = {message: '', recipient: '', sender:this.props.loggedInUser.username, filepath: ''};
+    this.state = {
+      message: '', 
+      recipient: '', 
+      sender:this.props.loggedInUser.username, 
+      filepath: ''
+    };
+    
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 

@@ -1,11 +1,14 @@
 import axios from 'axios';
 
 export const GET_USERS = 'GET_USERS';
-export const GET_USER_SESSION = 'GET_USER_SESSION';
 export const GET_USER = 'GET_USER';
 export const SIGN_UP = 'SIGN_UP';
 export const LOG_IN = 'LOG_IN';
+export const GET_USER_SESSION = 'GET_USER_SESSION';
+export const GET_USER_MESSAGE_LIST = 'GET_USER_MESSAGE_LIST';
+export const GET_MESSAGE = 'GET_MESSAGE';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
+export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 export const UPLOAD_FILE = 'UPLOAD_FILE';
 
 const ROOT_URL = 'http://localhost:1337/parse';
@@ -107,6 +110,37 @@ export const uploadFile = (filepath) => {
   }
 };
 
+export const getUserMessageList = (username) => {
+
+  const url = `${ROOT_URL}/classes/Message?where={"recipient":"${username}"}`;
+  const request = axios.get(url, {
+    headers: {
+      'X-Parse-Application-Id': API_KEY,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return {
+    type: GET_USER_MESSAGE_LIST,
+    payload: request
+  }
+};
+
+export const getMessage = (msgId) => {
+  const url = `${ROOT_URL}/classes/Message/${msgId}`;
+  const request = axios.get(url, {
+    headers: {
+      'X-Parse-Application-Id': API_KEY,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return {
+    type: GET_MESSAGE,
+    payload: request
+  }
+};
+
 export const newMessage = (data) => {
 
   const url = `${ROOT_URL}/classes/Message`;
@@ -121,6 +155,22 @@ export const newMessage = (data) => {
 
   return {
     type: NEW_MESSAGE,
+    payload: request
+  };
+};
+
+export const deleteMessage = (msgId) => {
+
+  const url = `${ROOT_URL}/classes/Message/${msgId}`;
+  const request = axios.delete(url, {
+    headers: {
+      'X-Parse-Application-Id': API_KEY,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return {
+    type: DELETE_MESSAGE,
     payload: request
   };
 };

@@ -4,10 +4,14 @@ import {routerReducer} from 'react-router-redux';
 
 import usersReducer from './reducer_users';
 import loggedInUserReducer from './reducer_logged_in_user';
+import userMessagesReducer from './reducer_user_messages';
+import messageReducer from './reducer_message';
 
 const rootReducer = combineReducers({
   users: usersReducer,
   loggedInUser: loggedInUserReducer,
+  messages: userMessagesReducer,
+  message: messageReducer,
   form: formReducer,
   routing: routerReducer
 });
