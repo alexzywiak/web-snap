@@ -1,39 +1,34 @@
 import React, {Component} from 'react';
-import {reduxForm} from 'redux-form';
+import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux';
 
 import {signUp} from '../action/index';
-
+import LoginForm from '../component/login_form';
 
 class SignUp extends Component{
 
   constructor(props){
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onSubmit(data){
-    this.props.logIn(data)
+  handleSubmit(data){
+    this.props.signUp(data)
     .then(result => {
-     const sessionToken = result.payload.data.sessionToken;
-     window.localStorage.setItem('session-token', sessionToken);
-   });
+      const sessionToken = result.payload.data.sessionToken;
+      window.localStorage.setItem('session-token', sessionToken);
+    });
   }
 
   render(){
-    console.log('container', this.props.loggedInUser)
-    const {fields: {username, email, password}, handleSubmit} = this.props;
 
     return (
-      <form onSubmit={handleSubmit(this.onSubmit)}>
-      <label>Username</label>
-      <input type="text" {...username}/>
-      <label>Email</label>
-      <input type="text" {...email}/>
-      <label>Password</label>
-      <input type="text" {...password}/>
-      <button type="submit">Sign Up</button>
-      </form>
-      );
+        <LoginForm
+        title="Sign Up"
+        action="signUp"
+        handleSubmit={this.handleSubmit}
+        />
+    );
   }
 }
 
@@ -43,7 +38,8 @@ const mapStateToProps = ({loggedInUser}) => {
   }
 }
 
-export default reduxForm({
-  form: 'SignUpForm',
-  fields: ['username', 'email', 'password']
-}, mapStateToProps, {signUp})(SignUp);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({signUp}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

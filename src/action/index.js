@@ -10,6 +10,7 @@ export const GET_MESSAGE = 'GET_MESSAGE';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 export const UPLOAD_FILE = 'UPLOAD_FILE';
+export const DELETE_FILE = 'DELETE_FILE';
 
 const ROOT_URL = 'http://localhost:3000/parse';
 const API_KEY = 'myid';
@@ -103,12 +104,27 @@ export const uploadFile = (filepath) => {
     }
   };
 
-  console.log(filepath);
-
   const request = axios.post(url, filepath[0], options);
 
   return {
     type: UPLOAD_FILE,
+    payload:request
+  }
+};
+
+export const deleteImage = (filename) => {
+  const url = `${ROOT_URL}/files/${filename}`;
+  const options = {
+    headers: {
+      'X-Parse-Application-Id': API_KEY,
+      'Content-Type': 'image/jpeg'
+    }
+  };
+
+  const request = axios.delete(url, options);
+
+  return {
+    type: DELETE_FILE,
     payload:request
   }
 };
@@ -153,8 +169,6 @@ export const newMessage = (data) => {
       'Content-Type': 'application/json'
     }
   });
-
-  console.log(data);
 
   return {
     type: NEW_MESSAGE,

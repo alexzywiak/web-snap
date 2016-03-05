@@ -22,10 +22,12 @@ class NewMessage extends Component{
   }
 
   handleSubmit(data){
-    console.log(data);
     this.props.uploadFile(data.filepath)
       .then(resp => {
-        console.log(resp);
+        console.log('upload', resp);
+        const {url, name} = resp.payload.data;
+        data.imageUrl = url;
+        data.filepath = name;
         this.props.newMessage(data)
         .then(resp => {
           console.log(resp);

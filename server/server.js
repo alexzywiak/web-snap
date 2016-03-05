@@ -35,6 +35,12 @@ module.exports = function(app, express) {
     serverURL: 'http://localhost:3000/parse'
   });
 
+  app.delete('/parse/files/:filename', function(req, res, next){
+    req['headers']['x-parse-master-key'] = 'keyedup';
+    console.log(req['headers']);
+    next();
+  });
+
   app.use('/parse', api);
 
 

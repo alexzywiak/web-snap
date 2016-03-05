@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {browserHistory} from 'react-router';
 
 import {authorize} from '../auth';
-import {getMessage, getUser, getUserSession, deleteMessage} from '../action/index';
+import {getMessage, getUser, getUserSession, deleteMessage, deleteImage} from '../action/index';
 
 class Message extends Component{
 
@@ -14,13 +14,14 @@ class Message extends Component{
         this.props.getMessage(this.props.params.id);
         this.interval = setInterval(() => {
           browserHistory.push('/messages');
-        }, 5000);
+        }, 15000);
       });
   }
 
   componentWillUnmount(){
     window.clearInterval(this.interval);
     this.props.deleteMessage(this.props.params.id);
+    this.props.deleteImage(this.props.message.filepath);
   }
 
   render(){
@@ -34,7 +35,7 @@ class Message extends Component{
       <div>
         <h3>{sender}</h3>
         <p>{message}</p>
-        <img src="http://localhost:1337/parse/files/myid/fc535c2269fb201e00ec621e50993dcf_test.jpg" alt=""/>
+        <img src={imageUrl} alt=""/>
       </div>
     );
   }
@@ -45,7 +46,7 @@ const mapStateToProps = ({message}) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({getMessage, getUser, getUserSession, deleteMessage}, dispatch);
+  return bindActionCreators({getMessage, getUser, getUserSession, deleteMessage, deleteImage}, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Message);

@@ -1,17 +1,18 @@
-import React, {Component, PropTypes} from 'react';
-import {reduxForm} from 'redux-form';
+import React, {Component} from 'react';
+import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux';
 
 import {logIn} from '../action/index';
-
+import LoginForm from '../component/login_form';
 
 class LogIn extends Component{
 
   constructor(props){
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onSubmit(data){
+  handleSubmit(data){
     this.props.logIn(data)
     .then(result => {
       const sessionToken = result.payload.data.sessionToken;
@@ -20,18 +21,14 @@ class LogIn extends Component{
   }
 
   render(){
-    console.log('container', this.props.loggedInUser)
-    const {fields: {username, password}, handleSubmit} = this.props;
 
     return (
-      <form onSubmit={handleSubmit(this.onSubmit)}>
-      <label>Username</label>
-      <input type="text" {...username}/>
-      <label>Password</label>
-      <input type="text" {...password}/>
-      <button type="submit">Sign Up</button>
-      </form>
-      );
+        <LoginForm
+        title="Log In"
+        action="logIn"
+        handleSubmit={this.handleSubmit}
+        />
+    );
   }
 }
 
@@ -41,7 +38,8 @@ const mapStateToProps = ({loggedInUser}) => {
   }
 }
 
-export default reduxForm({
-  form: 'LogInForm',
-  fields: ['username', 'password']
-}, mapStateToProps, {logIn})(LogIn);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({logIn}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);

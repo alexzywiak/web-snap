@@ -10,7 +10,7 @@ import Message from './container/message';
 
 export default (
   <Route path='/' component={App}>
-   <IndexRoute component={LogIn} />
+   <IndexRoute component={MessageList} />
    <Route path='/login' component={LogIn} />
    <Route path='/signup' component={SignUp} />
    <Route path='/newmessage' component={NewMessage} />
