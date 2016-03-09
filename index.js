@@ -8,7 +8,7 @@ require('./server/server.js')(app, express);
 
 // export our app for testing and flexibility, required by index.js
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 
 app.listen(port);
 
