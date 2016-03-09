@@ -7,6 +7,8 @@ var path = require('path');
 var cors = require('cors');
 var ParseServer = require('parse-server').ParseServer;
 
+var config = require('./config');
+
 
 module.exports = function(app, express) {
 
@@ -28,16 +30,14 @@ module.exports = function(app, express) {
 
   var api = new ParseServer({
     databaseURI: "mongodb://localhost/websnap",
-    //cloud: '/home/myApp/cloud/main.js', // Provide an absolute path 
-    appId: 'myid',
-    masterKey: 'keyedup', // Keep this key secret! 
-    //fileKey: 'optionalFileKey',
-    serverURL: 'http://localhost:3000/parse'
+    appId: config.appId,
+    masterKey: config.masterKey,
+    serverURL: 'http://localhost:3000/parse',
+    //verifyUserEmails: true
   });
 
   app.delete('/parse/files/:filename', function(req, res, next){
     req['headers']['x-parse-master-key'] = 'keyedup';
-    console.log(req['headers']);
     next();
   });
 
