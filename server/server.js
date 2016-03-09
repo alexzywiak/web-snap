@@ -28,13 +28,7 @@ module.exports = function(app, express) {
 
   app.use(bodyParser.json());
 
-  var api = new ParseServer({
-    databaseURI: "mongodb://localhost/websnap",
-    appId: config.appId,
-    masterKey: config.masterKey,
-    serverURL: 'http://localhost:3000/parse',
-    //verifyUserEmails: true
-  });
+  var api = new ParseServer(config);
 
   app.delete('/parse/files/:filename', function(req, res, next){
     req['headers']['x-parse-master-key'] = 'keyedup';
