@@ -33,7 +33,7 @@ class NewMessage extends Component{
             className: 'alert-success',
             message: 'You snapped a chat!  Way to go!'
           });
-          browserHistory.push('/messages');
+          browserHistory.push('web-snap/messages');
         });
       });
   }

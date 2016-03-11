@@ -8,7 +8,7 @@ class MessageListView extends Component {
         <Link
         className="list-group-item"
         key={msg.objectId}
-        to={`/message/${msg.objectId}`}>
+        to={`/web-snap/message/${msg.objectId}`}>
           <h4 className="list-group-item-heading">{msg.sender}</h4>
           <p className="list-group-item-text">{msg.message}</p>
         </Link>
@@ -33,7 +33,7 @@ class MessageListView extends Component {
 
                   <Link 
                   className="list-group-item"
-                  to="/newmessage">
+                  to="/web-snap/newmessage">
                     <h4 className="list-group-item-heading">No Messages!</h4>
                     <p className="list-group-item-text">Send a Message Instead</p>
                   </Link>
