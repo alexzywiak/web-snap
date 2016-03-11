@@ -49,7 +49,7 @@ class LoginForm extends Component {
               <label>Password</label>
               <input 
               className="form-control"
-              type="text"
+              type="password"
               value = {this.state.password}
               onChange={evt => this.onInputChange('password', evt.target.value)}/>
               <hr/>
