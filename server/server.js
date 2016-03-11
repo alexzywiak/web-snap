@@ -31,7 +31,7 @@ module.exports = function(app, express) {
   var api = new ParseServer(config);
 
   app.delete('/parse/files/:filename', function(req, res, next){
-    req['headers']['x-parse-master-key'] = 'keyedup';
+    req['headers']['x-parse-master-key'] = config.masterKey;
     next();
   });
 
