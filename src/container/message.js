@@ -15,7 +15,7 @@ class Message extends Component{
       .then( () => {
         this.props.getMessage(this.props.params.id);
         this.interval = setInterval(() => {
-          browserHistory.push('/messages');
+          browserHistory.push('/web-snap/messages');
         }, 15000);
       });
   }

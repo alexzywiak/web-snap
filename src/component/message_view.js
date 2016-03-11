@@ -12,7 +12,7 @@ class MessageView extends Component {
     return (
       <div className="row">
         <div className="col-md-12">
-          <Link to="/messages">Back To Messages</Link>
+          <Link to="/web-snap/messages">Back To Messages</Link>
         </div>
         <div className="col-sm-12">
           <div className="thumbnail">
