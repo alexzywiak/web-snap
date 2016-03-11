@@ -18,7 +18,7 @@ class NewMessage extends Component{
 
   componentWillMount(){
     this.props.getUsers();
-    authorize(this.props, '/login');
+    authorize(this.props, '/web-snap/login');
   }
 
   handleSubmit(data){

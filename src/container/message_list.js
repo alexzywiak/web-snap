@@ -11,7 +11,7 @@ import MessageListView from '../component/message_list_view';
 class MessageList extends Component{
 
   componentWillMount(){
-    authorize(this.props, '/login')
+    authorize(this.props, '/web-snap/login')
       .then( () => {
         this.props.getUserMessageList(this.props.loggedInUser.username);
       });

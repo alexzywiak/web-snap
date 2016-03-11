@@ -9,12 +9,12 @@ import MessageList from './container/message_list';
 import Message from './container/message';
 
 export default (
-  <Route path='/' component={App}>
+  <Route path='/web-snap' component={App}>
    <IndexRoute component={MessageList} />
-   <Route path='/login' component={LogIn} />
-   <Route path='/signup' component={SignUp} />
-   <Route path='/newmessage' component={NewMessage} />
-   <Route path='/messages' component={MessageList} />
-   <Route path='/message/:id' component={Message} />
+   <Route path='/web-snap/login' component={LogIn} />
+   <Route path='/web-snap/signup' component={SignUp} />
+   <Route path='/web-snap/newmessage' component={NewMessage} />
+   <Route path='/web-snap/messages' component={MessageList} />
+   <Route path='/web-snap/message/:id' component={Message} />
   </Route>
 );

@@ -11,7 +11,7 @@ import MessageView from '../component/message_view';
 class Message extends Component{
 
   componentWillMount(){
-    authorize(this.props, '/login')
+    authorize(this.props, '/web-snap/login')
       .then( () => {
         this.props.getMessage(this.props.params.id);
         this.interval = setInterval(() => {
