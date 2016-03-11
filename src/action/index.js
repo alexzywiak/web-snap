@@ -11,7 +11,7 @@ export const UPLOAD_FILE = 'UPLOAD_FILE';
 export const DELETE_FILE = 'DELETE_FILE';
 export const FLASH_MESSAGE = 'FLASH_MESSAGE';
 
-const ROOT_URL = 'http://ziviak.net/websnap/parse';
+const ROOT_URL = 'http://ziviak.net/web-snap/parse';
 const API_KEY = 'supersecretappid';
 const HEADERS = {'X-Parse-Application-Id': API_KEY};
 
