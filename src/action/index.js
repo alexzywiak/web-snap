@@ -4,6 +4,7 @@ import {browserHistory} from 'react-router';
 export const SET_LOGGED_IN_USER = 'SET_LOGGED_IN_USER';
 export const GET_USER_SESSION = 'GET_USER_SESSION';
 export const GET_USER_MESSAGE_LIST = 'GET_USER_MESSAGE_LIST';
+export const GET_USERS = 'GET_USERS';
 export const GET_MESSAGE = 'GET_MESSAGE';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';

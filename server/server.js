@@ -11,6 +11,10 @@ var config = require('./config');
 
 
 module.exports = function(app, express) {
+  app.use('*', function(req, res, next){
+    console.log(req.url);
+    next();
+  });
 
   if(process.env.NODE_ENV === 'dev'){
     app.use(morgan('dev'));
@@ -36,7 +40,6 @@ module.exports = function(app, express) {
   });
 
   app.use('/parse', api);
-
 
   app.use(express.static(path.join(__dirname, '../dist')));
   
