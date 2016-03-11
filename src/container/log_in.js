@@ -17,12 +17,19 @@ class LogIn extends Component{
     this.props.logIn(data)
     .then(result => {
       const sessionToken = result.payload.data.sessionToken;
-      window.localStorage.setItem('session-token', sessionToken);
-      this.props.sendFlashMessage({
-        className:'alert-success',
-        message: `You\'re logged in as ${this.props.loggedInUser.username}!`
-      });
-      browserHistory.push('/messages');
+      if(sessionToken){
+        window.localStorage.setItem('session-token', sessionToken);
+        this.props.sendFlashMessage({
+          className:'alert-success',
+          message: `You\'re logged in!`
+        });
+        browserHistory.push('/web-snap/messages');
+      } else {
+        this.props.sendFlashMessage({
+          className:'alert-danger',
+          message: 'Error Loggin In!'
+        });
+      }
     });
   }
 

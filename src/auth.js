@@ -12,13 +12,13 @@ export function authorize(props, redirect) {
         
         return props.getUserSession(sessionToken)
           .then( session => {
-            
             const userId = session.payload.data.user.objectId;
             return props.getUser(userId);
           });
       
       } else {
         browserHistory.push(redirect);
+        return bluebird.resolve();
       }
     } else {
       return bluebird.resolve();

@@ -56,8 +56,8 @@ class LoginForm extends Component {
               <div className="row">
                 <div className="col-md-2 col-md-offset-6">{
                     this.props.action === 'signUp' ?
-                    <Link to="/login">Log In</Link> :
-                    <Link to="/signup">Sign Up</Link> 
+                    <Link to="/web-snap/login">Log In</Link> :
+                    <Link to="/web-snap/signup">Sign Up</Link> 
                   }
                 </div>
                 <div className="col-md-4">

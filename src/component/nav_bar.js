@@ -11,7 +11,7 @@ class NavBar extends Component {
     return (
       <nav className="navbar navbar-default">
         <div className="navbar-header">
-          <Link className="navbar-brand" to="/messages">
+          <Link className="navbar-brand" to="/web-snap/messages">
             {this.props.loggedInUser ? 
               this.props.loggedInUser.username
                 :
@@ -26,18 +26,18 @@ class NavBar extends Component {
                 Log Out
               </a>  
                 :
-              <Link to='/login'>
+              <Link to='/web-snap/login'>
                 Log In
               </Link>
             }
           </li>
           <li>
-            <Link to='/messages'>
+            <Link to='/web-snap/messages'>
               Messages
             </Link>
           </li>
           <li>
-            <Link to='/newmessage'>
+            <Link to='/web-snap/newmessage'>
               Send a Message
             </Link>
           </li>

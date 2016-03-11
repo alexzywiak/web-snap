@@ -66,7 +66,7 @@ export const logIn = (data) => {
 
 export const logOut = () => {
   window.localStorage.removeItem('session-token');
-  browserHistory.push('/login');
+  browserHistory.push('/web-snap/login');
   return {
     type: SET_LOGGED_IN_USER,
     payload: null

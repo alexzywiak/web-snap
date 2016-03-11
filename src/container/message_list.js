@@ -13,7 +13,9 @@ class MessageList extends Component{
   componentWillMount(){
     authorize(this.props, '/web-snap/login')
       .then( () => {
-        this.props.getUserMessageList(this.props.loggedInUser.username);
+        if(this.props.loggedInUser){
+          this.props.getUserMessageList(this.props.loggedInUser.username);
+        }
       });
   }
 

@@ -22,7 +22,7 @@ class SignUp extends Component{
         className:'alert-success',
         message: `You\'re all signed up as ${this.props.loggedInUser.username}!`
       });
-      browserHistory.push('/messages');
+      browserHistory.push('/web-snap/messages');
     });
   }
 
